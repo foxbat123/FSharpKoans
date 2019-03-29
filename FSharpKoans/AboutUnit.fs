@@ -55,12 +55,12 @@ module ``15: Advanced techniques`` =
             | _ -> fun () -> "Nothing to do"
         scrollPositions |> should be ofType<(unit -> string) list>
         getWorkAtPosition |> should be ofType<int -> unit -> string>
-        getWorkAtPosition 3 |> should be ofType<int -> string>
-        //(getWorkAtPosition 3) () |> should be ofType<FILL_ME_IN>
-        //getWorkAtPosition 250 |> should be ofType<FILL_ME_IN>
-        //(getWorkAtPosition 250) () |> should be ofType<FILL_ME_IN>
-        //(getWorkAtPosition 5) () |> should equal __
-        //(getWorkAtPosition -7) () |> should equal __
+        getWorkAtPosition 3 |> should be ofType<unit -> string>
+        (getWorkAtPosition 3) () |> should be ofType<string>
+        getWorkAtPosition 250 |> should be ofType<unit -> string>
+        (getWorkAtPosition 250) () |> should be ofType<string>
+        (getWorkAtPosition 5) () |> should equal "Load video"
+        (getWorkAtPosition -7) () |> should equal "Nothing to do"
 
     (*
         Sometimes we want to do something purely for a side-effect
@@ -102,9 +102,10 @@ module ``15: Advanced techniques`` =
         // but modify the result before you give it back?
         let f animal noise = animal + " says " + noise
         let cows = 
-           __
+            let turkey = f "cow"
+            turkey  
             
-            
+
             // <-- multiple words on this line, or you may want to make this a multi-line thing.  You MUST use `f`.
         cows "moo" |> should equal "cow says moo, de gozaru"
         cows "MOOooOO" |> should equal "cow says MOOooOO, de gozaru"

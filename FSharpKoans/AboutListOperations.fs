@@ -249,7 +249,11 @@ or something else), it's likely that you'll be able to use a fold.
     [<Test>]
     let ``14 A fold which sums a list`` () =
         let fold initialState xs =
-            __ // write a function to do what's described above
+            let rec innerfun xs out =
+                match xs with 
+                |[] -> initialState + out
+                | a::rest -> innerfun rest (out + a)
+            innerfun xs 0// write a function to do what's described above
         fold 0 [1; 2; 3; 4] |> should equal 10
         fold 100 [2;4;6;8] |> should equal 120
 

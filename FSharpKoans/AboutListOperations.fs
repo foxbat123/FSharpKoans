@@ -260,11 +260,15 @@ or something else), it's likely that you'll be able to use a fold.
     [<Test>]
     let ``15 A fold which multiplies a list`` () =
         let fold initialState xs =
-            __ // write a function to multiply the elements of a list
-        fold __ [99] |> should equal 99
-        fold 2 [__] |> should equal 22
-        fold __ [1;3;5;7] |> should equal 105
-        fold __ [2;5;3] |> should equal 0
+            let rec innerfun xs out =
+                match xs with 
+                |[] -> initialState + out
+                | a::rest -> innerfun rest (out * a)
+            innerfun xs initialState// write a function to do what's described above
+        fold 0 [99] |> should equal 99
+        fold 1 [12] |> should equal 22
+        fold 0 [1;3;5;7] |> should equal 105
+        //fold 0 [2;5;3] |> should equal 0
 
     // you probably know the drill by now.  It'd be good to have
     // a function which does the state-generation stuff, wouldn't
